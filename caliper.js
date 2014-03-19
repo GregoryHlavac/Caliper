@@ -1,10 +1,11 @@
-var nconf = require('nconf');
-var express = require('express');
+var express = require('express'),
+    nconf = require('nconf'),
+    fs = require('fs'),
+    path = require('path'),
+    lessMiddleware = require('less-middleware');
 
-var root = require('./vhosts/root/server').app;
-var contentStatic = require("./vhosts/static/static_server").app;
-var crashStat = require('./vhosts/crash-stats/server').app;
-var submit = require('./vhosts/submit/server').app;
+
+var oneDay = 86400000;
 
 /*  
  *  Load command-line arguments...
@@ -17,20 +18,49 @@ nconf.file({ file: "caliper.cfg" });
 
 nconf.defaults(
 {
-
     "port": "8080"
 });
 
 var app = express();
 
 // A gear will have to do, couldn't find a good one of a caliper.
-app.use(express.favicon("./static/favicon.ico"));
 
-app
-    .use(express.vhost('localhost', root))
-    .use(express.vhost('static.localhost', contentStatic))
-    .use(express.vhost('crash-stats.localhost', crashStat))
-    .use(express.vhost('submit.localhost', submit));
+app.set('views', __dirname + '/views');
+app.set('view engine', 'jade');
+app.use(express.favicon("./static/favicon.ico"));
+app.use(express.logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded());
+app.use(express.methodOverride());
+app.use(app.router);
+
+app.use(express.compress());
+
+var targetDirectory = path.resolve(__dirname, "static");
+var lessDirectory = path.resolve(__dirname, "assets");
+
+var options =
+{
+    "dest": targetDirectory,
+    "force": true,
+    "debug": false
+};
+var parserOptions = {};
+var compilerOptions = {};
+
+app.use(lessMiddleware(lessDirectory, options, parserOptions, compilerOptions));
+app.use(express.static(path.join(__dirname, 'static')));
+
+var RouteDir = 'routes',
+    files = fs.readdirSync(RouteDir);
+
+files.forEach(
+function (file)
+{
+    var filePath = path.resolve('./', RouteDir, file),
+        route = require(filePath);
+    route.initializeRoutes(app);
+});
 
 var server = app.listen(nconf.get("port"), function() 
 {

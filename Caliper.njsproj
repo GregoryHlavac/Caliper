@@ -30,12 +30,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="caliper.js" />
+    <Compile Include="models\index.js" />
+    <Compile Include="models\release.js" />
+    <Compile Include="routes\crash-stats.js" />
+    <Compile Include="routes\index.js" />
+    <Compile Include="routes\submit.js" />
+    <Compile Include="static\lib\angular\angular.js" />
     <Compile Include="vhosts\crash-stats\server.js" />
     <Compile Include="vhosts\root\server.js" />
     <Compile Include="vhosts\static\static_server.js" />
     <Compile Include="vhosts\submit\server.js" />
     <Content Include="package.json" />
     <Content Include="README.md" />
+    <Content Include="static\favicon.ico" />
     <Content Include="vhosts\crash-stats\package.json" />
     <Content Include="vhosts\root\package.json" />
     <Content Include="vhosts\static\package.json" />
@@ -43,6 +50,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="css\" />
+    <Folder Include="models\" />
+    <Folder Include="routes\" />
+    <Folder Include="static\" />
+    <Folder Include="static\css\" />
+    <Folder Include="static\lib\" />
+    <Folder Include="static\lib\angular\" />
     <Folder Include="vhosts\" />
     <Folder Include="vhosts\crash-stats\" />
     <Folder Include="vhosts\root\" />
