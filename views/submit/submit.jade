@@ -1,0 +1,34 @@
+doctype html
+html(lang="en")
+	head
+		title #{project_name} Crash Report Manual Submission
+		link(rel='stylesheet', href='/bootstrap/css/bootstrap.min.css')
+		script(src='//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js')
+		script(src='/bootstrap/js/bootstrap.min.js')
+		link(rel='stylesheet', href='css/submit.css', type='text/css' )
+	body
+		form.report.form-horizontal(action="/submit", enctype="multipart/form-data" method="post")
+			fieldset
+				legend Submit a Crash Report
+				.form-group
+					label.col-md-4.control-label(for='user') User
+					.col-md-6
+						input#user.form-control.input-md(name='user', type='text', placeholder='Username/Email', required='')
+				.form-group
+					label.col-md-4.control-label(for='description') Description
+					.col-md-6
+						textarea#description.form-control(name='description', placeholder="What were you doing?") 
+				.form-group
+					label.col-md-4.control-label(for='version') Version
+					.col-md-6
+						select#version.form-control(name='version')
+							option(value='Current') Current
+							option(value='1.3.2') 1.3.2
+				.form-group
+					label.col-md-4.control-label(for='crashdump') Crash Dump
+					.col-md-4
+						input#crashdump.input-file(name='uploads', type='file', accept=".dmp")
+				.form-group
+					label.col-md-4.control-label(for='submit')
+					.col-md-6
+						button#submit.btn.btn-primary(type="submit", name='submit') Submit

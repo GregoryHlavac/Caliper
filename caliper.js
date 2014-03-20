@@ -2,7 +2,8 @@ var express = require('express'),
     nconf = require('nconf'),
     fs = require('fs'),
     path = require('path'),
-    lessMiddleware = require('less-middleware');
+    lessMiddleware = require('less-middleware'),
+    db = require('./models');
 
 
 var oneDay = 86400000;
@@ -18,12 +19,13 @@ nconf.file({ file: "caliper.cfg" });
 
 nconf.defaults(
 {
-    "port": "8080"
+    "port": "8080",
+    "project_name": "Caliper"
 });
 
 var app = express();
 
-// A gear will have to do, couldn't find a good one of a caliper.
+app.nconf = nconf;
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
@@ -42,7 +44,7 @@ var lessDirectory = path.resolve(__dirname, "assets");
 var options =
 {
     "dest": targetDirectory,
-    "force": true,
+    "force": false,
     "debug": false
 };
 var parserOptions = {};
@@ -62,7 +64,19 @@ function (file)
     route.initializeRoutes(app);
 });
 
-var server = app.listen(nconf.get("port"), function() 
-{
-    console.log('Caliper started on port %d...', server.address().port);
-});
+
+db
+    .sequelize
+    .sync()
+    .complete(function(err) {
+        if (err) {
+            throw err;
+        }
+        else
+        {
+            var server = app.listen(nconf.get("port"), function () {
+                console.log('Caliper started on port %d...', server.address().port);
+            });
+        }
+    });
+

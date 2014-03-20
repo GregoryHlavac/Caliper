@@ -1,0 +1,11 @@
+doctype html
+html(lang="en")
+	head
+		title #{project_name} Crash Stats
+	body
+		h1 Hello, welcome to Crash Stats
+		h2 Currently Tracking #{releases.length} Different Releases
+		ul
+			each rls in releases
+				li
+					= project_name + " " + rls.version + " has " + rls.crashes.length + " crashes currently."
