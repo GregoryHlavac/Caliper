@@ -20,15 +20,11 @@ exports.initializeRoutes = function(app)
 
 		form.parse(req, function(err, fields, files) {
 		    if (err) {
-	            console.log("ERROR: " + err);
-                res.render("index",  { project_name: app.nconf.get("project_name") });
+	            console.log("Error: " + err);
+		        res.send("Error");
 		    }
 		    else {
-		        res.writeHead(200, { 'content-type': 'text/plain' });
-		        res.write('received upload:\n\n');
-		        res.end(util.inspect({ fields: fields, files: files }));
-
-		        console.log(util.inspect({ fields: fields, files: files }));
+		        res.send("Success");
 		    }
 		});
 
