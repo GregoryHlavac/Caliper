@@ -2,8 +2,7 @@ var express = require('express'),
     nconf = require('nconf'),
     fs = require('fs'),
     path = require('path'),
-    lessMiddleware = require('less-middleware'),
-    db = require('./models');
+    lessMiddleware = require('less-middleware');
 
 
 var oneDay = 86400000;
@@ -25,7 +24,11 @@ nconf.defaults(
 
 var app = express();
 
+GLOBAL.appConfig = nconf;
 app.nconf = nconf;
+
+// Create DB after global appConfig has been set.
+db = require('./models');
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');

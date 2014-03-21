@@ -42,6 +42,8 @@
     <Content Include="static\favicon.ico" />
     <Content Include="views\crash-stats\index.jade" />
     <Content Include="views\index.jade" />
+    <Content Include="views\layout.jade" />
+    <Content Include="views\submit\submit.jade" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="css\" />
