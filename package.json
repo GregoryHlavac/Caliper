@@ -16,6 +16,7 @@
     "sequelize": "^1.7.0",
     "mysql": "^2.1.1",
     "lodash": "^2.4.1",
-    "formidable": "^1.0.14"
+    "formidable": "^1.0.14",
+    "multiparty": "^3.2.3"
   }
 }

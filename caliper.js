@@ -19,12 +19,12 @@ nconf.file({ file: "caliper.cfg" });
 nconf.defaults(
 {
     "port": "8080",
-    "project_name": "Caliper"
+    "project_name": "Caliper",
+    "submit_file_byte_limit": 2097152
 });
 
 var app = express();
 
-GLOBAL.appConfig = nconf;
 app.nconf = nconf;
 
 // Create DB after global appConfig has been set.
