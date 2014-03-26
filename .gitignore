@@ -108,3 +108,6 @@ minidumps
 # WebStorm
 .idea/*
 .idea
+*.iml
+.idea/Caliper.iml
+.idea/jsLibraryMappings.xml
