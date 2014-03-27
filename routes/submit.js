@@ -1,5 +1,4 @@
-﻿var formidable = require("formidable"),
-    multiparty = require('multiparty'),
+﻿var multiparty = require('multiparty'),
 	util = require('util'),
 	fs = require("fs");
 

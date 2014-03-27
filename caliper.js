@@ -4,9 +4,6 @@ var express = require('express'),
     path = require('path'),
     lessMiddleware = require('less-middleware');
 
-
-var oneDay = 86400000;
-
 /*  
  *  Load command-line arguments...
  *  Then from environment. 
@@ -19,6 +16,7 @@ nconf.file({ file: "caliper.cfg" });
 nconf.defaults(
 {
     "port": "8080",
+	"static_content_expiration": 86400000,
     "project_name": "Caliper",
     "submit_file_byte_limit": 2097152
 });
@@ -32,14 +30,12 @@ db = require('./models');
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
-app.use(express.favicon("./static/favicon.ico"));
-app.use(express.logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded());
-app.use(express.methodOverride());
-app.use(app.router);
+app.use(require('static-favicon')("./static/favicon.ico"));
+app.use(require('morgan')('dev'));
+app.use(require('body-parser')())
+app.use(require('method-override')());
 
-app.use(express.compress());
+app.use(require('compression')());
 
 var targetDirectory = path.resolve(__dirname, "static");
 var lessDirectory = path.resolve(__dirname, "assets");
@@ -54,7 +50,7 @@ var parserOptions = {};
 var compilerOptions = {};
 
 app.use(lessMiddleware(lessDirectory, options, parserOptions, compilerOptions));
-app.use(express.static(path.join(__dirname, 'static')));
+app.use(express.static(path.join(__dirname, 'static'), { maxAge: nconf.get('static_content_expiration') }));
 
 var RouteDir = 'routes',
     files = fs.readdirSync(RouteDir);
@@ -63,8 +59,8 @@ files.forEach(
 function (file)
 {
     var filePath = path.resolve('./', RouteDir, file),
-        route = require(filePath);
-    route.initializeRoutes(app);
+        nextRoute = require(filePath);
+    nextRoute.initializeRoutes(app);
 });
 
 

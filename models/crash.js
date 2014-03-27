@@ -6,6 +6,7 @@
         crash_id: { type: types.STRING }
 	},
 	{
+		timestamps: false,
 		classMethods:
 		{
 			associate: function(models) {

@@ -2,9 +2,8 @@
 	path = require('path'),
 	lodash = require('lodash'),
 	Sequelize = require('sequelize'),
+    nconf = require('nconf'),
 	db = {};
-
-var nconf = GLOBAL.appConfig;
 
 var sequelize;
 

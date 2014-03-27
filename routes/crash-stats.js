@@ -1,10 +1,11 @@
-﻿var db = require("../models");
+﻿var db = require("../models"),
+	express = require('express');
 
 exports.initializeRoutes = function(app) 
 {
-    var ind = "/crash-stats";
+	var csRouter = express.Router();
 
-    app.get(ind, function (req, res) {
+    csRouter.get('/', function (req, res) {
         db.Release.findAll({
             include: [db.Crash]
         }).success(function(rls) {
@@ -15,4 +16,8 @@ exports.initializeRoutes = function(app)
             });
         });
     });
+
+
+
+	app.use('/crash-stats', csRouter);
 }
