@@ -12,7 +12,6 @@
 			associate: function(models) {
 				Release.hasMany(models.Crash);
 				Release.belongsTo(models.Project);
-
 			}
 		}
 	});

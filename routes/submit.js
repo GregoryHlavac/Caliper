@@ -1,10 +1,14 @@
 ﻿var multiparty = require('multiparty'),
 	util = require('util'),
-	fs = require("fs");
+	fs = require("fs"),
+	express = require('express');
 
 exports.initializeRoutes = function(app) 
-{  
-	app.get('/submit', function (req, res) {
+{
+	var subRouter = express.Router();
+
+
+	subRouter.get('/', function (req, res) {
 		res.render("submit/submit",
 		{
 			project_name: app.nconf.get("project_name"),
@@ -12,7 +16,7 @@ exports.initializeRoutes = function(app)
 		});
 	});
 
-	app.post('/submit', function(req, res) {
+	subRouter.post('/', function(req, res) {
 		var cdOpts = {
 			maxFilesSize: app.nconf.get("submit_file_byte_limit"), // This is 2 MB
 			autoFields: true,
@@ -22,21 +26,20 @@ exports.initializeRoutes = function(app)
 
 		var form = new multiparty.Form(cdOpts);
 
-		form.on('error', function(err) {
-			console.log(err);
-			res.header('Connection', 'close');
-			res.send(413, "Error");
-		});
+		form.parse(req, function(err, fields, files) {
+			if(err) {
+				console.log(err);
+				res.header('Connection', 'close');
+				res.send(413, "Error");
+				return;
+			}
 
-		form.on('file', function(name, file) {
-			console.log("File Received as Field: " + name);
-			console.log(file);
-		});
+			console.log(fields);
+			console.log(files);
 
-		form.on('close', function() {
 			res.send(200, "Success");
 		});
-
-		form.parse(req);
 	});
+
+	app.use('/submit', subRouter);
 }

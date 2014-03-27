@@ -1,0 +1,1 @@
+angular.module('caliperApp', ['ngResource', 'caliperApp.services', 'caliperApp.controllers']);
