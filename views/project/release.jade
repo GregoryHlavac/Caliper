@@ -1,4 +1,8 @@
 extends ../layout
 
 block content
-    
+	.container
+		ul.breadcrumb
+			li
+				a(href="/projects/#{project.title}") #{project.title}
+			li.active Version #{release.version}

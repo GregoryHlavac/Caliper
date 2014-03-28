@@ -1,27 +1,28 @@
 {
-	"name": "Caliper",
-	"version": "0.0.1",
-	"description": "Caliper",
-	"main": "server.js",
-	"author": {
-		"name": "Gregory Hlavac",
-		"email": "ghlavac@gmail.com"
-	},
-	"dependencies": {
-		"express": "4.0.0-rc4",
-		"morgan": "^1.0.0",
-		"static-favicon": "^1.0.2",
-		"serve-static": "^1.0.3",
-		"body-parser": "^1.0.1",
-		"method-override": "^1.0.0",
-		"debug": "~0.7.4",
-		"jade": "~1.3.0",
-		"less-middleware": "0.2.1-beta",
-		"nconf": "0.6.9",
-		"sequelize": "^1.7.0",
-		"mysql": "^2.1.1",
-		"lodash": "^2.4.1",
-		"multiparty": "^3.2.3",
-		"compression": "^1.0.1"
-	}
+  "name": "Caliper",
+  "version": "0.0.1",
+  "description": "Caliper",
+  "main": "server.js",
+  "author": {
+    "name": "Gregory Hlavac",
+    "email": "ghlavac@gmail.com"
+  },
+  "dependencies": {
+    "express": "4.0.0-rc4",
+    "morgan": "^1.0.0",
+    "static-favicon": "^1.0.2",
+    "serve-static": "^1.0.3",
+    "body-parser": "^1.0.1",
+    "method-override": "^1.0.0",
+    "debug": "~0.7.4",
+    "jade": "~1.3.0",
+    "less-middleware": "0.2.1-beta",
+    "nconf": "0.6.9",
+    "sequelize": "^1.7.0",
+    "mysql": "^2.1.1",
+    "lodash": "^2.4.1",
+    "multiparty": "^3.2.3",
+    "compression": "^1.0.1",
+    "node-minify": "^0.10.2"
+  }
 }

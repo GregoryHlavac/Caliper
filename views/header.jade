@@ -1,0 +1,23 @@
+head
+	title #{page_title}
+
+	if settings.renderOptions.compress
+		link(rel='stylesheet', href='/dist/caliper.css')
+		script(src='/dist/caliper.js')
+	else
+		link(rel='stylesheet', href='/bootstrap/css/bootstrap.css')
+
+		if settings.renderOptions.useGoogleCDN
+			script(src='//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.js')
+			script(src='//ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.3/angular.js')
+			script(src='//ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.3/angular-resource.js')
+		else
+			script(src='/jquery/jquery-2.1.0.js')
+			script(src='/angular-1.3.0-beta.3/angular.js')
+			script(src='/angular-1.3.0-beta.3/angular-resource.js')
+		script(src='/bootstrap/js/bootstrap.js')
+		script(src='/js/caliper_app.js')
+		script(src='/js/caliper_services.js')
+		script(src='/js/caliper_controllers.js')
+
+	block additionalHeader

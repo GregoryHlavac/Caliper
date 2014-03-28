@@ -4,7 +4,6 @@
     {
         res.render("index",
 		{
-		    project_name: app.nconf.get("project_name"),
             page_title: "Caliper :: Home Page"
 		});
     });

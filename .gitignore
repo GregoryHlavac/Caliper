@@ -103,6 +103,7 @@ $RECYCLE.BIN/
 node_modules
 static/css
 minidumps
+static/dist/*
 
 
 # WebStorm
