@@ -3,7 +3,9 @@
 	var Release = sequelize.define('Release',
 	{
 		version: { type: types.STRING, unique: true },
-		first_crash: { type: types.DATE, unique: true }    
+		unidentified_crashes: { type: types.INTEGER },
+		identified_crashes: { type: types.INTEGER },
+		fixed_crashes: { type: types.INTEGER }
 	},
 	{
 		timestamps: false,

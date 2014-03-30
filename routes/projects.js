@@ -1,5 +1,6 @@
 var db = require("../models"),
-	express = require('express');
+	express = require('express'),
+	lodash = require('lodash');
 
 exports.initializeRoutes = function(app)
 {
@@ -48,10 +49,27 @@ exports.initializeRoutes = function(app)
 	});
 
 	// Get information about a project
+	/*
+	 *  Get information about a specific project, this also pulls
+	 *  the 10 most recent releases
+	 */
 	projRouter.get('/:project', function (req, res) {
 		var proj = req.project;
 
-		res.render('project/project', { project: proj });
+		db.Release
+			.findAll({
+				where: { ProjectId: req.project.id },
+				limit: 3,
+				order: '`version` DESC'
+			}).success(function(rlses) {
+				res.render('project/project', {
+					page_title: "Caliper :: " + proj.title,
+					project: proj,
+					releases: rlses
+				});
+			}).error(function(err) {
+
+			});
 	});
 
 	// Error page for missing project.
@@ -66,7 +84,17 @@ exports.initializeRoutes = function(app)
 		var proj = req.project;
 		var rls = req.release;
 
-		res.render('project/release', { project: proj, release: rls });
+
+		var total = rls.unidentified_crashes + rls.identified_crashes + rls.fixed_crashes;
+
+		res.render('project/release', {
+			page_title: "Caliper :: " + proj.title + " " + rls.version,
+			project: proj,
+			release: rls,
+			crashes: (rls.unidentified_crashes / total) * 100.0,
+			identified: (rls.identified_crashes / total) * 100.0,
+			fixed: (rls.fixed_crashes / total) * 100.0
+		});
 	});
 
 	// Error page for missing release.
@@ -82,7 +110,12 @@ exports.initializeRoutes = function(app)
 		var rls = req.release;
 		var crs = req.crash;
 
-		res.render('project/crash', { project: proj, release: rls, crash: crs });
+		res.render('project/crash', {
+			page_title: "Caliper :: " + proj.title + " " + rls.version + " Crash Report",
+			project: proj,
+			release: rls,
+			crash: crs
+		});
 	});
 
 	// Error page for missing crash.

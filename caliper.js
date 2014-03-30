@@ -22,7 +22,7 @@ nconf.defaults(
 
 	"renderOptions": {
 		"compress": false,
-		"useGoogleCDN": true
+		"useCDN": true
 	}
 });
 
