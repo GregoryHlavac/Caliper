@@ -61,13 +61,21 @@ app.use(express.static(path.join(__dirname, 'static'), { maxAge: nconf.get('stat
 
 if(nconf.get('renderOptions').compress)
 {
+
+	//script(src='/ext/jquery/dist/jquery.js')
+	//script(src='/ext/angular/angular.js')
+	//script(src='/ext/angular-resource/angular-resource.js')
+	//script(src='/ext/Chart.js/Chart.js')
+
+
 	// Using UglifyJS for JS
 	new compressor.minify({
 		type: 'uglifyjs',
 		fileIn: [
-			path.join(__dirname, 'static', "jquery", "jquery-2.1.0.js"),
-			path.join(__dirname, 'static', "angular-1.3.0-beta.3", "angular.js"),
-			path.join(__dirname, 'static', "angular-1.3.0-beta.3", "angular-resource.js"),
+			path.join(__dirname, 'static', "ext", "jquery", "dist", "jquery.js"),
+			path.join(__dirname, 'static', "ext", "angular", "angular.js"),
+			path.join(__dirname, 'static', "ext", "angular-resource", "angular-resource.js"),
+			path.join(__dirname, 'static', "ext", "Chart.js", "Chart.js"),
 			path.join(__dirname, 'static', "bootstrap", "js", "bootstrap.js"),
 			path.join(__dirname, 'static', "js", "caliper_app.js"),
 			path.join(__dirname, 'static', "js", "caliper_controllers.js"),

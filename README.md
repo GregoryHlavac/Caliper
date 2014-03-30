@@ -21,6 +21,10 @@ Caliper Relies Upon Server-Side
 Caliper's Client Side Uses
 * [AngularJS]
 * [jQuery 2.1]
+* [Chart.JS]
+
+
+Caliper also uses [Slate Bootstrap] and it is bundled with the source, it is the only dependency bundled.
 
 
 Optional Drivers
@@ -37,6 +41,7 @@ Installation
 git clone https://github.com/GregoryHlavac/Caliper.git
 cd Caliper
 npm install
+bower install
 mkdir minidumps
 ```
 
@@ -49,7 +54,7 @@ node caliper
 [Google Breakpad]: https://code.google.com/p/google-breakpad/
 [Socorro]:https://github.com/mozilla/socorro
 [SequelizeJS]:http://sequelizejs.com/
-[Express]:http://expressjs.com
+[Express 4]:http://expressjs.com
 [Node.JS]:http://nodejs.org
 [Twitter Bootstrap]:http://twitter.github.com/bootstrap/
 [Jade]:http://jade-lang.com/
@@ -59,3 +64,5 @@ node caliper
 [Node-Minify]: https://github.com/srod/node-minify
 [AngularJS]: http://angularjs.org/
 [jQuery]: http://jquery.com/
+[Chart.JS]: http://www.chartjs.org/
+[Slate Bootstrap]: http://bootswatch.com/slate/
