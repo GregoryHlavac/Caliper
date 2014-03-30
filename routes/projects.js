@@ -56,26 +56,33 @@ exports.initializeRoutes = function(app)
 	projRouter.get('/:project', function (req, res) {
 		var proj = req.project;
 
-		db.Release
-			.findAll({
-				where: { ProjectId: req.project.id },
-				limit: 3,
-				order: '`version` DESC'
-			}).success(function(rlses) {
-				res.render('project/project', {
-					page_title: "Caliper :: " + proj.title,
-					project: proj,
-					releases: rlses
-				});
-			}).error(function(err) {
-
+		db.Release.getLimited(req.project.id, 3, function(releases) {
+			res.render('project/project', {
+				page_title: "Caliper :: " + proj.title,
+				project: proj,
+				releases: releases,
+				startIndex: 0
 			});
+		}, function(err) {
+			// TODO: Error Rendering
+		});
 	});
 
-	// Error page for missing project.
+	// TODO: Project Release Archive
+	projRouter.get('/:project/archive', function (req, res) {
+		console.log("Offset: " + req.params['offset']);
+
+		db.Release.getLimitedOffsetBy(req.project.id, 10, 3, function(releases) {
+			res.send(200, "LOL");
+		}, function(err) {
+			// TODO: Error Rendering
+		});
+	});
+
+		// Error page for missing project.
 	projRouter.use(function(err, req, res, next) {
 		if(err)
-			res.send(404, "Error retrieving project.");
+			; // TODO: Error Rendering
 		else next();
 	});
 
@@ -84,10 +91,9 @@ exports.initializeRoutes = function(app)
 		var proj = req.project;
 		var rls = req.release;
 
-
 		var total = rls.unidentified_crashes + rls.identified_crashes + rls.fixed_crashes;
 
-		res.render('project/release', {
+		res.render('project/release/release', {
 			page_title: "Caliper :: " + proj.title + " " + rls.version,
 			project: proj,
 			release: rls,
@@ -97,10 +103,24 @@ exports.initializeRoutes = function(app)
 		});
 	});
 
+
+	// TODO: Fixed/Identified/Crashes sub-paths releases.
+	projRouter.get('/:project/:release/fixed', function(req, res) {
+
+	});
+
+	projRouter.get('/:project/:release/identified', function(req, res) {
+
+	});
+
+	projRouter.get('/:project/:release/crashes', function(req, res) {
+
+	});
+
 	// Error page for missing release.
 	projRouter.use(function(err, req, res, next) {
 		if(err)
-			res.send(404, "Error retrieving release.");
+			; // TODO: Error Rendering
 		else next();
 	});
 
@@ -121,7 +141,7 @@ exports.initializeRoutes = function(app)
 	// Error page for missing crash.
 	projRouter.use(function(err, req, res, next) {
 		if(err)
-			res.send(404, "Error retrieving crash.");
+			; // TODO: Error Rendering
 		else next();
 	});
 

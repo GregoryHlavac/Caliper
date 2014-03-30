@@ -2,8 +2,8 @@
 {
     var Crash = sequelize.define('Crash',
 	{
-		client_id: { type: types.STRING },
-        crash_id: { type: types.STRING }
+        signature: { type: types.STRING },
+		first_appearance: { type: types.DATE }
 	},
 	{
 		timestamps: false,
@@ -11,6 +11,7 @@
 		{
 			associate: function(models) {
 				Crash.belongsTo(models.Release);
+				Crash.hasMany(models.Report);
 			}
 		}
 	});

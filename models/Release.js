@@ -14,6 +14,23 @@
 			associate: function(models) {
 				Release.hasMany(models.Crash);
 				Release.belongsTo(models.Project);
+			},
+			getLimited: function(pid, count, successCallback, errorCallback) {
+				db.Release
+					.findAll({
+						where: { ProjectId: pid },
+						limit: count,
+						order: '`version` DESC'
+					}).success(successCallback).error(errorCallback);
+			},
+			getLimitedOffsetBy: function(pid, count, offsetBy, successCallback, errorCallback) {
+				db.Release
+					.findAll({
+						where: { ProjectId: pid },
+						limit: count,
+						offset: offsetBy,
+						order: '`version` DESC'
+					}).success(successCallback).error(errorCallback);
 			}
 		}
 	});
