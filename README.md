@@ -63,6 +63,6 @@ node caliper
 [NConf]:https://github.com/flatiron/nconf
 [Node-Minify]: https://github.com/srod/node-minify
 [AngularJS]: http://angularjs.org/
-[jQuery]: http://jquery.com/
+[jQuery 2.1]: http://jquery.com/
 [Chart.JS]: http://www.chartjs.org/
 [Slate Bootstrap]: http://bootswatch.com/slate/
