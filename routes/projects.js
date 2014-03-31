@@ -22,7 +22,7 @@ exports.initializeRoutes = function(app)
 
 	projRouter.param('release', function(req, res, next, id) {
 		db.Release
-			.find({ where: { version: id, ProjectId: req.project.id }, include: [db.Crash] })
+			.find({ where: { version: id, ProjectId: req.project.id } })
 			.complete(function(err, rls) {
 				if(err)
 					return next(err);
@@ -60,29 +60,46 @@ exports.initializeRoutes = function(app)
 			res.render('project/project', {
 				page_title: "Caliper :: " + proj.title,
 				project: proj,
-				releases: releases,
-				startIndex: 0
+				releases: releases
 			});
 		}, function(err) {
-			// TODO: Error Rendering
+			res.status(404).render('error', {
+				page_title: "Caliper :: Error",
+				error: "Could not load releases for project " + proj.title
+			});
 		});
 	});
 
 	// TODO: Project Release Archive
 	projRouter.get('/:project/archive', function (req, res) {
-		console.log("Offset: " + req.params['offset']);
+		console.log("Offset: " + req.param("offset"));
 
-		db.Release.getLimitedOffsetBy(req.project.id, 10, 3, function(releases) {
-			res.send(200, "LOL");
+		var proj = req.project;
+
+		db.Release.getLimitedOffsetBy(proj.id, 10, 3, function(releases) {
+			res.render('project/release/archive', {
+				page_title: "Caliper :: " + proj.title + " :: Archive",
+				project: proj,
+				releases: releases,
+				startIndex: 0
+			});
 		}, function(err) {
-			// TODO: Error Rendering
+			res.status(404).render('error', {
+				page_title: "Caliper :: Error",
+				error: "Could not load release archive for project " + proj.title
+			});
 		});
 	});
 
-		// Error page for missing project.
+	// Error page for missing project.
 	projRouter.use(function(err, req, res, next) {
 		if(err)
-			; // TODO: Error Rendering
+		{
+			res.status(404).render('error', {
+				page_title: "Caliper :: Project Not Found",
+				error: "Could not find project under the requested title. Check your URL and make sure a project with that name actually exists."
+			});
+		}
 		else next();
 	});
 
@@ -120,7 +137,12 @@ exports.initializeRoutes = function(app)
 	// Error page for missing release.
 	projRouter.use(function(err, req, res, next) {
 		if(err)
-			; // TODO: Error Rendering
+		{
+			res.status(404).render('error', {
+				page_title: "Caliper :: Release Not Found",
+				error: "Could not find release under project " + req.project.title + " make sure the version you're looking for exists under the project."
+			});
+		}
 		else next();
 	});
 
@@ -141,7 +163,24 @@ exports.initializeRoutes = function(app)
 	// Error page for missing crash.
 	projRouter.use(function(err, req, res, next) {
 		if(err)
-			; // TODO: Error Rendering
+		{
+			res.status(404).render('error', {
+				page_title: "Caliper :: Crash Report Not Found",
+				error: "Could not find crash report under project " + req.project.title + " version " + req.release.version + ", you probably followed a bad link."
+			});
+		}
+		else next();
+	});
+
+	// Catch-All Error Handler, just in-case another one of the error handlers throws an error.
+	projRouter.use(function(err, req, res, next) {
+		if(err)
+		{
+			res.status(404).render('error', {
+				page_title: "Caliper :: Unknown Error",
+				error: "An unknown error occurred, I am not sure how you pulled this one off."
+			});
+		}
 		else next();
 	});
 

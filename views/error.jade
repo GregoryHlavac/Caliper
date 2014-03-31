@@ -16,41 +16,15 @@
 	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 	THE SOFTWARE.
-extends ../../layout
+
+extends layout
 
 block content
-	.container
-		ul.breadcrumb
-			li
-				a(href="/projects/#{project.title}") #{project.title}
-			li.active Archive
-		if releases.length > 0
-			.panel.panel-default
-				table.table.table-hover
-					thead
-						tr
-							th Version
-							th Unidentified Crashes
-							th Identified Crashes
-							th Fixed Crashes
-					tbody.rowlink(data-link='row')
-						for rls in releases
-							tr
-								td #{rls.version}
-									a(href='./#{rls.version}', target='_blank')
-								td #{rls.unidentified_crashes}
-								td #{rls.identified_crashes}
-								td #{rls.fixed_crashes}
-
-				//ul.list-group
-				//	for rls in releases
-				//		li.list-group-item
-				//			a(href='./#{rls.version}') #{rls.version}
-
-		else
-			.panel.panel-primary
-				h2.text-center There are no archived releases yet for #{project.title}.
-
-block additionalFooter
-	script(src='/ext/jasny-bootstrap/dist/js/jasny-bootstrap.js')
-	script $('tbody.rowlink').rowlink()
+	.container-fluid
+		.panel.panel-danger
+			.panel-heading An Error Occurred
+			.panel-body #{error}
+			if returnTo
+				.panel-footer
+					.text-center
+						a(href='#{returnTo}') Return to previous page.
