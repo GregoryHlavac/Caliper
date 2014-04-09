@@ -23,6 +23,7 @@
     "lodash": "^2.4.1",
     "multiparty": "^3.2.3",
     "compression": "^1.0.1",
-    "node-minify": "^0.10.2"
+    "node-minify": "^0.10.2",
+    "minidump-stackwalker": "0.0.3"
   }
 }

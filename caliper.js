@@ -41,7 +41,6 @@ app.use(require('static-favicon')("./static/favicon.ico"));
 app.use(require('morgan')('dev'));
 app.use(require('body-parser')())
 app.use(require('method-override')());
-
 app.use(require('compression')());
 
 var targetDirectory = path.resolve(__dirname, "static");
@@ -77,6 +76,7 @@ if(nconf.get('renderOptions').compress)
 			path.join(__dirname, 'static', "ext", "angular-resource", "angular-resource.js"),
 			path.join(__dirname, 'static', "ext", "Chart.js", "Chart.js"),
 			path.join(__dirname, 'static', "bootstrap", "js", "bootstrap.js"),
+			path.join(__dirname, 'static', "ext", "jasny-bootstrap", "dist", "js", "jasny-bootstrap.js"),
 			path.join(__dirname, 'static', "js", "caliper_app.js"),
 			path.join(__dirname, 'static', "js", "caliper_controllers.js"),
 			path.join(__dirname, 'static', "js", "caliper_services.js")

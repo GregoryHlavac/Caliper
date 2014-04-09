@@ -20,6 +20,7 @@ $RECYCLE.BIN/
 node_modules
 static/css
 minidumps
+**/symbols
 
 **/static/dist/*
 **/static/ext/*
