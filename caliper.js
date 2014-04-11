@@ -1,9 +1,11 @@
 var express = require('express'),
     nconf = require('nconf'),
     fs = require('fs'),
+	ffs = require('final-fs'),
     path = require('path'),
     lessMiddleware = require('less-middleware'),
-	compressor = require('node-minify');
+	compressor = require('node-minify'),
+	passport = require('passport');
 
 /*  
  *  Load command-line arguments...
@@ -19,6 +21,7 @@ nconf.defaults(
     "port": "8080",
 	"static_content_expiration": 30*24*60*60*1000,
     "submit_file_byte_limit": 2097152,
+	"bcrypt_salt_size": 10,
 
 	"renderOptions": {
 		"compress": false,
@@ -42,6 +45,12 @@ app.use(require('morgan')('dev'));
 app.use(require('body-parser')())
 app.use(require('method-override')());
 app.use(require('compression')());
+app.use(require('connect-flash')());
+app.use(require('cookie-parser')());
+app.use(require('express-session')({ secret: "keyboard cat"}));
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 var targetDirectory = path.resolve(__dirname, "static");
 var lessDirectory = path.resolve(__dirname, "assets");
@@ -102,18 +111,21 @@ if(nconf.get('renderOptions').compress)
 	});
 }
 
+var RouteDir = 'routes';
 
-var RouteDir = 'routes',
-    files = fs.readdirSync(RouteDir);
-
-files.forEach(
-function (file)
-{
-    var filePath = path.resolve('./', RouteDir, file),
-        nextRoute = require(filePath);
-    nextRoute.initializeRoutes(app);
-});
-
+ffs.readdirRecursive(RouteDir, true, '.')
+	.then(function (files) {
+		files.forEach(
+			function (file)
+			{
+				var filePath = path.resolve('./', RouteDir, file),
+					nextRoute = require(filePath);
+				nextRoute.initializeRoutes(app);
+			});
+	})
+	.otherwise(function (err) {
+		console.log("Route Load Error: " + err);
+	});
 
 db
     .sequelize
@@ -129,4 +141,3 @@ db
             });
         }
     });
-

@@ -51,12 +51,12 @@ exports.initializeRoutes = function(app)
 	// Get information about a project
 	/*
 	 *  Get information about a specific project, this also pulls
-	 *  the 10 most recent releases
+	 *  the 6 most recent releases
 	 */
 	projRouter.get('/:project', function (req, res) {
 		var proj = req.project;
 
-		db.Release.getLimited(req.project.id, 3, function(releases) {
+		db.Release.getLimited(req.project.id, 6, function(releases) {
 			res.render('project/project', {
 				page_title: "Caliper :: " + proj.title,
 				project: proj,

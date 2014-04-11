@@ -1,0 +1,100 @@
+//-
+	The MIT License (MIT)
+		Copyright (c) 2014 Gregory Hlavac
+		Permission is hereby granted, free of charge, to any person obtaining a copy
+	of this software and associated documentation files (the "Software"), to deal
+	in the Software without restriction, including without limitation the rights
+	to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+	copies of the Software, and to permit persons to whom the Software is
+	furnished to do so, subject to the following conditions:
+		The above copyright notice and this permission notice shall be included in
+	all copies or substantial portions of the Software.
+		THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+	THE SOFTWARE.
+doctype html
+html(lang="en")
+	include ../header
+
+	block additionalHeader
+		link(rel='stylesheet', href='/css/caliper_admin_custom.css')
+
+
+	body(style="padding-top: 70px;")
+		.navbar.navbar-default.navbar-fixed-top(role='navigation')
+			.container-fluid
+				.navbar-header
+					button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+						span.icon-bar
+						span.icon-bar
+						span.icon-bar
+					a.navbar-brand(href='#') Caliper Control Panel
+				.navbar-collapse.collapse
+					form.navbar-form.navbar-right
+						input.form-control(type='text', placeholder='Search...')
+		.container-fluid
+			.row
+				.col-sm-3.col-md-2.col-lg-1.sidebar.navbar-inverse
+					ul.nav.nav-sidebar
+						li.active
+							a(href='#') Overview
+						li
+							a(href='#') Projects
+						li
+							a(href='#') Users
+						li
+							a(href='#') Export
+				.col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.col-lg-11.col-lg-offset-1.main
+					h1.page-header Dashboard
+					.row.placeholders
+						.col-xs-6.col-sm-3.placeholder
+							img.img-responsive(data-src='holder.js/200x200/auto/sky', alt='Generic placeholder thumbnail')
+							h4 Label
+							span.text-muted Something else
+						.col-xs-6.col-sm-3.placeholder
+							img.img-responsive(data-src='holder.js/200x200/auto/vine', alt='Generic placeholder thumbnail')
+							h4 Label
+							span.text-muted Something else
+						.col-xs-6.col-sm-3.placeholder
+							img.img-responsive(data-src='holder.js/200x200/auto/sky', alt='Generic placeholder thumbnail')
+							h4 Label
+							span.text-muted Something else
+						.col-xs-6.col-sm-3.placeholder
+							img.img-responsive(data-src='holder.js/200x200/auto/vine', alt='Generic placeholder thumbnail')
+							h4 Label
+							span.text-muted Something else
+					h2.sub-header Section title
+					.table-responsive
+						table.table.table-striped
+							thead
+								tr
+									th #
+									th Header
+									th Header
+									th Header
+									th Header
+							tbody
+								tr
+									td 1,001
+									td Lorem
+									td ipsum
+									td dolor
+									td sit
+								tr
+									td 1,002
+									td amet
+									td consectetur
+									td adipiscing
+									td elit
+
+		block content
+			#push
+
+		include ../footer
+
+	block additionalFooter
+		script(src='//cdnjs.cloudflare.com/ajax/libs/holder/2.3.1/holder.min.js')
