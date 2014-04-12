@@ -269,8 +269,6 @@ exports.initializeRoutes = function(app)
 	});
 
 	projRouter.get('/:project/:release/:crash/:report', function(req, res) {
-		console.log(req.report);
-
 		res.render('project/report', {
 			page_title: "Caliper :: " + req.project.title + " " + req.release.version + " Crash Report",
 			project: req.project,
