@@ -31,6 +31,20 @@
 						offset: offsetBy,
 						order: '`version` DESC'
 					}).success(successCallback).error(errorCallback);
+			},
+			hasVersion: function(project, vers, successCallback, errorCallback) {
+				Release.find({ where: { version: vers, ProjectId: project.id }}).success(successCallback).error(errorCallback);
+			},
+			assureVersion: function(project, vers, successCallback, errorCallback) {
+				Release.findOrCreate(
+					{
+						ProjectId: project.id, version: vers
+					},
+					{
+						unidentified_crashes: 0,
+						identified_crashes: 0,
+						fixed_crashes: 0
+					}).success(successCallback).error(errorCallback);
 			}
 		}
 	});

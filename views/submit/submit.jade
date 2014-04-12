@@ -5,9 +5,9 @@ html(lang="en")
 		link(rel='stylesheet', href='/bootstrap/css/bootstrap.min.css')
 		script(src='//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js')
 		script(src='/bootstrap/js/bootstrap.min.js')
-		link(rel='stylesheet', href='css/submit.css', type='text/css' )
+		link(rel='stylesheet', href='/css/submit.css', type='text/css' )
 	body
-		form.report.form-horizontal(action="/submit", enctype="multipart/form-data" method="post")
+		form.report.form-horizontal(action="./submit", enctype="multipart/form-data" method="post")
 			fieldset
 				legend Submit a Crash Report
 				.form-group

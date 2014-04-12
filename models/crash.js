@@ -3,7 +3,7 @@
     var Crash = sequelize.define('Crash',
 	{
         signature: { type: types.STRING },
-		first_appearance: { type: types.DATE }
+		first_appearance: { type: types.DATE, defaultValue: types.NOW }
 	},
 	{
 		timestamps: false,
@@ -12,6 +12,9 @@
 			associate: function(models) {
 				Crash.belongsTo(models.Release);
 				Crash.hasMany(models.Report);
+			},
+			assureSignature: function(release, sig, successCallback, errorCallback) {
+				Crash.findOrCreate({ ReleaseId: release.id, signature: sig },{}).success(successCallback).error(errorCallback);
 			}
 		}
 	});

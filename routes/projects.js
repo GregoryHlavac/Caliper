@@ -1,14 +1,22 @@
 var db = require("../models"),
 	express = require('express'),
-	lodash = require('lodash');
+	lodash = require('lodash'),
+	multiparty = require('multiparty'),
+	fs = require('fs'),
+	Project = db.Project;
+	Release = db.Release,
+	Crash = db.Crash,
+	Report = db.Report,
+	StackFrame = db.StackFrame,
+	mdsw =  require('minidump-stackwalker');
 
 exports.initializeRoutes = function(app)
 {
 	var projRouter = express.Router();
 
 	projRouter.param('project', function(req, res, next, id) {
-		db.Project
-			.find({ where: { title: id }, include: [db.Release] })
+		Project
+			.find({ where: { title: id }, include: [Release] })
 			.complete(function(err, proj) {
 				if(err)
 					return next(err);
@@ -21,7 +29,7 @@ exports.initializeRoutes = function(app)
 	});
 
 	projRouter.param('release', function(req, res, next, id) {
-		db.Release
+		Release
 			.find({ where: { version: id, ProjectId: req.project.id } })
 			.complete(function(err, rls) {
 				if(err)
@@ -35,7 +43,7 @@ exports.initializeRoutes = function(app)
 	});
 
 	projRouter.param('crash', function(req, res, next, id) {
-		db.Crash
+		Crash
 			.find({ where: { crash_id: id, ReleaseId: req.release.id }})
 			.complete(function(err, crs) {
 				if(err)
@@ -44,6 +52,20 @@ exports.initializeRoutes = function(app)
 					return next(new Error("Crash failed to load."));
 
 				req.crash = crs;
+				next();
+			});
+	});
+
+	projRouter.param('report', function(req, res, next, id) {
+		Report
+			.find({ where: { CrashId: req.crash.id, report_uuid: id }, include: [StackFrame]})
+			.complete(function(err, rp) {
+				if(err)
+					return next(err);
+				else if(!rp)
+					return next(new Error("Report failed to load."));
+
+				req.report = rp;
 				next();
 			});
 	});
@@ -69,6 +91,74 @@ exports.initializeRoutes = function(app)
 			});
 		});
 	});
+
+	projRouter.get('/:project/submit', function (req, res) {
+		res.render("submit/submit",
+			{
+				project_name: app.nconf.get("project_name"),
+				page_title: "Caliper :: Manual Crash Reporter"
+			});
+	});
+
+	projRouter.post('/:project/submit', function(req, res) {
+		var cdOpts = {
+			maxFilesSize: app.nconf.get("submit_file_byte_limit"), // This is 2 MB
+			autoFields: true,
+			autoFiles: true,
+			uploadDir: "./minidumps"
+		};
+
+		var form = new multiparty.Form(cdOpts);
+
+		form.parse(req, function(err, fields, files) {
+			if(err) {
+				console.log(err);
+				res.header('Connection', 'close');
+				res.send(413, "Error");
+				return;
+			}
+			res.send(200, "Success");
+
+
+			var cdf = files.crashdump[0];
+
+			mdsw.readMinidump(cdf.path,"./symbols", function(err, stdout, stderr) {
+				if(err)
+				{
+					console.log("Error Parsing Minidump: " + err);
+				}
+				else
+				{
+					var parsed = JSON.parse(stdout);
+
+					Release.assureVersion(req.project, fields.version, function(rls) {
+						console.log("Release: %s found/created.", rls.version);
+
+						Crash.assureSignature(rls, parsed.crashing_thread.frames[0].function, function(crs) {
+							console.log("Crash: %s found/created.", crs.signature);
+
+							Report.assureReport(db, crs, cdf.originalFilename.replace(".dmp", ""), fields.user, fields.description, parsed, function(rpt) {
+								console.log("Report %s Created", rpt.report_uuid);
+							}, function(err) {
+								console.log("Report couldn't be created.");
+							});
+
+						}, function(err) {
+							console.log("Crash couldn't be created.");
+						});
+
+					}, function(err) {
+						console.log("Release couldn't be created.");
+					});
+				}
+			});
+
+			console.log(fields);
+			console.log(files);
+		});
+	});
+
+
 
 	// TODO: Project Release Archive
 	projRouter.get('/:project/archive', function (req, res) {
