@@ -33,9 +33,13 @@ block content
 					h4 #{project.title} Version #{release.version}
 			.panel-body
 				.progress(style='height: 40px;')
-					a.progress-bar.progress-bar-success(href="../#{release.version}/fixed", style="width: #{fixed}%", data-toggle="popover", data-content="Fixed Crashes")
-					a.progress-bar.progress-bar-warning(href="../#{release.version}/identified", style="width: #{identified}%", data-toggle="popover", data-content="Identified Crashes")
-					a.progress-bar.progress-bar-danger(href="../#{release.version}/crashes", style="width: #{crashes}%", data-toggle="popover", data-content="Unidentified Crashes")
+					a.progress-bar.progress-bar-success(href="./#{release.version}/fixed", style="width: #{fixed}%", data-toggle="popover", data-content="Fixed Crashes")
+					a.progress-bar.progress-bar-warning(href="./#{release.version}/identified", style="width: #{identified}%", data-toggle="popover", data-content="Identified Crashes")
+					a.progress-bar.progress-bar-danger(href="./#{release.version}/crashes", style="width: #{crashes}%", data-toggle="popover", data-content="Unidentified Crashes")
+			ul.list-group
+				for crs in reported_crashes
+					li.list-group-item.truncateText
+						a(href='./#{release.version}/#{crs.id}') #{crs.signature}
 
 block additionalFooter
 	script $('[data-toggle="popover"]').popover({trigger: 'hover', 'placement': 'bottom' });

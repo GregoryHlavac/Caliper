@@ -30,7 +30,7 @@ exports.initializeRoutes = function(app)
 
 	projRouter.param('release', function(req, res, next, id) {
 		Release
-			.find({ where: { version: id, ProjectId: req.project.id } })
+			.find({ where: { version: id, ProjectId: req.project.id }, include: [Crash] })
 			.complete(function(err, rls) {
 				if(err)
 					return next(err);
@@ -44,7 +44,7 @@ exports.initializeRoutes = function(app)
 
 	projRouter.param('crash', function(req, res, next, id) {
 		Crash
-			.find({ where: { crash_id: id, ReleaseId: req.release.id }})
+			.find({ where: { id: id, ReleaseId: req.release.id }, include: [Report]})
 			.complete(function(err, crs) {
 				if(err)
 					return next(err);
@@ -197,6 +197,9 @@ exports.initializeRoutes = function(app)
 	projRouter.get('/:project/:release', function (req, res) {
 		var proj = req.project;
 		var rls = req.release;
+		var crashes = rls.crashes;
+
+		console.log(rls);
 
 		var total = rls.unidentified_crashes + rls.identified_crashes + rls.fixed_crashes;
 
@@ -204,6 +207,7 @@ exports.initializeRoutes = function(app)
 			page_title: "Caliper :: " + proj.title + " " + rls.version,
 			project: proj,
 			release: rls,
+			reported_crashes: crashes,
 			crashes: (rls.unidentified_crashes / total) * 100.0,
 			identified: (rls.identified_crashes / total) * 100.0,
 			fixed: (rls.fixed_crashes / total) * 100.0
@@ -241,12 +245,14 @@ exports.initializeRoutes = function(app)
 		var proj = req.project;
 		var rls = req.release;
 		var crs = req.crash;
+		var reports = crs.reports;
 
 		res.render('project/crash', {
-			page_title: "Caliper :: " + proj.title + " " + rls.version + " Crash Report",
+			page_title: "Caliper :: " + proj.title + " " + rls.version + " Crash",
 			project: proj,
 			release: rls,
-			crash: crs
+			crash: crs,
+			reports: reports
 		});
 	});
 
@@ -261,6 +267,20 @@ exports.initializeRoutes = function(app)
 		}
 		else next();
 	});
+
+	projRouter.get('/:project/:release/:crash/:report', function(req, res) {
+		console.log(req.report);
+
+		res.render('project/report', {
+			page_title: "Caliper :: " + req.project.title + " " + req.release.version + " Crash Report",
+			project: req.project,
+			release: req.release,
+			crash: req.crash,
+			report: req.report,
+			frames: req.report.stackFrames
+		});
+	});
+
 
 	// Catch-All Error Handler, just in-case another one of the error handlers throws an error.
 	projRouter.use(function(err, req, res, next) {

@@ -7,10 +7,8 @@
 	to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 	copies of the Software, and to permit persons to whom the Software is
 	furnished to do so, subject to the following conditions:
-
 		The above copyright notice and this permission notice shall be included in
 	all copies or substantial portions of the Software.
-
 		THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -22,37 +20,21 @@
 extends ../layout
 
 block content
-	.container-fluid
+	.container
 		ul.breadcrumb
 			li
 				a(href="/projects/#{project.title}") #{project.title}
 			li
-				a(href="/projects/#{project.title}/#{release.version}") Version #{release.version}
-			- var strippedSignature = crash.signature.substr(0, crash.signature.indexOf('('));
-			li.active #{strippedSignature}
-
-		.panel.panel-info
-			.panel-heading Full Signature
-			.panel-body #{crash.signature}
-
-			table.table.table-striped.table-hover
-				thead
-					tr
-						th Reported By
-						th Type
-						th OS
-						th OS Version
-						th Reported At
-				tbody.rowlink(data-link='row')
-					for rpt in reports
-						tr
-							td #{rpt.client_id}
-								a(href='./#{rpt.report_uuid}', target='_blank')
-							td #{rpt.crash_type}
-							td #{rpt.operating_system}
-							td #{rpt.os_version}
-							td #{rpt.reported_on}
-
-
-block additionalFooter
-	script $('tbody.rowlink').rowlink()
+				a(href='../') Version #{release.version}
+			li
+				- var strippedSignature = crash.signature.substr(0, crash.signature.indexOf('('));
+				a(href='./') #{strippedSignature}
+			li.active #{report.report_uuid}
+		.panel.panel-primary
+			.panel-heading
+				.text-center
+					h4 Report #{report.report_uuid}
+			ul.list-group
+				for frame in frames
+					- var strippedSignature = frame.function.substr(0, frame.function.indexOf('('));
+					li.list-group-item.truncateText #{frame.file} (#{frame.line}): #{strippedSignature}

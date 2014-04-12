@@ -15,3 +15,9 @@ body {
     /* Set the fixed height of the footer here */
     height: 35px;
 }
+
+.truncateText {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
