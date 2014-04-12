@@ -47,7 +47,7 @@ block content
 					for rpt in reports
 						tr
 							td #{rpt.client_id}
-								a(href='./#{rpt.report_uuid}', target='_blank')
+								a(href='/projects/#{project.title}/#{release.version}/#{crash.id}/#{rpt.report_uuid}', target='_blank')
 							td #{rpt.crash_type}
 							td #{rpt.operating_system}
 							td #{rpt.os_version}

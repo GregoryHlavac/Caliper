@@ -25,10 +25,10 @@ block content
 			li
 				a(href="/projects/#{project.title}") #{project.title}
 			li
-				a(href='../') Version #{release.version}
+				a(href='/projects/#{project.title}/#{release.version}') Version #{release.version}
 			li
 				- var strippedSignature = crash.signature.substr(0, crash.signature.indexOf('('));
-				a(href='./') #{strippedSignature}
+				a(href='/projects/#{project.title}/#{release.version}/#{crash.id}') #{strippedSignature}
 			li.active #{report.report_uuid}
 		.panel.panel-primary
 			.panel-heading
