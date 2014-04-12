@@ -58,7 +58,7 @@ exports.initializeRoutes = function(app)
 
 	projRouter.param('report', function(req, res, next, id) {
 		Report
-			.find({ where: { CrashId: req.crash.id, report_uuid: id }, include: [StackFrame]})
+			.find({ where: { CrashId: req.crash.id, report_uuid: id }})
 			.complete(function(err, rp) {
 				if(err)
 					return next(err);
@@ -269,13 +269,20 @@ exports.initializeRoutes = function(app)
 	});
 
 	projRouter.get('/:project/:release/:crash/:report', function(req, res) {
-		res.render('project/report', {
-			page_title: "Caliper :: " + req.project.title + " " + req.release.version + " Crash Report",
-			project: req.project,
-			release: req.release,
-			crash: req.crash,
-			report: req.report,
-			frames: req.report.stackFrames
+		StackFrame.getByReport(req.report, function(frames) {
+			res.render('project/report', {
+				page_title: "Caliper :: " + req.project.title + " " + req.release.version + " Crash Report",
+				project: req.project,
+				release: req.release,
+				crash: req.crash,
+				report: req.report,
+				frames: frames
+			});
+		}, function(err) {
+			res.status(404).render('error', {
+				page_title: "Caliper :: Unknown Error",
+				error: "An unknown error occurred, I am not sure how you pulled this one off."
+			});
 		});
 	});
 

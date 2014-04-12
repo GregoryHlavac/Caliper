@@ -18,6 +18,9 @@ module.exports = function(sequelize, types)
 			{
 				associate: function(models) {
 					StackFrame.belongsTo(models.Report);
+				},
+				getByReport: function(rpt, successCallback, errorCallback) {
+					StackFrame.findAll({ where: { ReportId: rpt.id }, order: '`frame` ASC'}).success(successCallback).error(errorCallback);
 				}
 			}
 		});
