@@ -43,7 +43,7 @@ describe("Database", function() {
 
 	describe('> User', function() {
 		before(function(done) {
-			db.User.create({ username: "lolol", email: "test@test.com", password: "testpass" }).success(function(usr) {
+			db.User.create({ username: "test", email: "test@test.com", password: "testpass" }).success(function(usr) {
 				should.exist(usr);
 				done();
 			}).error(function(err) {
@@ -51,8 +51,8 @@ describe("Database", function() {
 			});
 		});
 
-		it("Should have a user called 'lolol'", function(done) {
-			db.User.find({ where: { username: "lolol" }}).success(function(usr) {
+		it("Should have a user called 'test'", function(done) {
+			db.User.find({ where: { username: "test" }}).success(function(usr) {
 				should.exist(usr);
 				done();
 			}).error(function(err) {
@@ -60,8 +60,8 @@ describe("Database", function() {
 			});
 		});
 
-		it("Should not have a user called 'trolol'", function(done) {
-			db.User.find({ where: { username: "trolol" }}).success(function(usr) {
+		it("Should not have a user called 'fail'", function(done) {
+			db.User.find({ where: { username: "fail" }}).success(function(usr) {
 				should.not.exist(usr);
 				done();
 			}).error(function(err) {
