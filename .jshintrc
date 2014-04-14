@@ -8,7 +8,7 @@
 	"laxbreak"      : true,
 	"bitwise"       : true,
 	"boss"          : false,
-	"eqeqeq"        : true,
+	"eqeqeq"        : false,
 	"eqnull"        : false,
 	"evil"          : false,
 	"expr"          : false,
