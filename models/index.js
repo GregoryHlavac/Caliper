@@ -7,20 +7,20 @@
 
 var sequelize;
 
-if (nconf.get("database:url") === null && nconf.get("database:db") === null) {
+if (nconf.get("database:url") == null && nconf.get("database:db") == null) {
 	sequelize = new Sequelize('caliper', 'root', 'root');
 	console.log("[Database] Initialized with default settings.");
 }
-else if (nconf.get("database:url") !== null) {
-    if(nconf.get("database:options") === null)
+else if (nconf.get("database:url") != null) {
+    if(nconf.get("database:options") == null)
 	    sequelize = new Sequelize(nconf.get("database:url"));
     else
         sequelize = new Sequelize(nconf.get("database:url"), nconf.get("database:options"));
 
 	console.log("[Database] Initialized from URL.");
 }
-else if (nconf.get("database:db") !== null) {
-	if(nconf.get("database:options") === null)
+else if (nconf.get("database:db") != null) {
+	if(nconf.get("database:options") == null)
 		sequelize = new Sequelize(nconf.get("database:db"), nconf.get("database:username"), nconf.get("database:password"));
 	else
 		sequelize = new Sequelize(nconf.get("database:db"), nconf.get("database:username"), nconf.get("database:password"), nconf.get("database:options"));
@@ -28,7 +28,7 @@ else if (nconf.get("database:db") !== null) {
     console.log("[Database] Initialized from explicit parameters.");
 }
 
-if (sequelize === null)
+if (sequelize == null)
 	throw "[Database] Something went wrong when initializing SequelizeJS";
 
 
