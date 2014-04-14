@@ -7,7 +7,9 @@
     "name": "Gregory Hlavac",
     "email": "ghlavac@gmail.com"
   },
-  "test": "grunt test",
+  "scripts": {
+	  "test": "grunt test"
+  },
   "dependencies": {
     "express": "4.0.0-rc4",
     "morgan": "^1.0.0",
