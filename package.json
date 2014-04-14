@@ -7,6 +7,7 @@
     "name": "Gregory Hlavac",
     "email": "ghlavac@gmail.com"
   },
+  "test": "grunt test",
   "dependencies": {
     "express": "4.0.0-rc4",
     "morgan": "^1.0.0",
@@ -33,5 +34,14 @@
     "connect-flash": "^0.1.1",
     "connect-session": "0.0.1",
     "cookie-parser": "^1.0.1"
+  },
+  "devDependencies": {
+    "should": "latest",
+    "grunt-cli": "^0.1.13",
+    "grunt": "^0.4.4",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-mocha-cli": "^1.8.0",
+    "sqlite3": "^2.2.2"
   }
 }

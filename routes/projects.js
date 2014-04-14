@@ -3,12 +3,12 @@ var db = require("../models"),
 	lodash = require('lodash'),
 	multiparty = require('multiparty'),
 	fs = require('fs'),
-	Project = db.Project;
+	Project = db.Project,
 	Release = db.Release,
 	Crash = db.Crash,
 	Report = db.Report,
 	StackFrame = db.StackFrame,
-	mdsw =  require('minidump-stackwalker');
+	mdsw = require('minidump-stackwalker');
 
 exports.initializeRoutes = function(app)
 {

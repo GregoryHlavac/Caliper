@@ -16,7 +16,7 @@
 				Release.belongsTo(models.Project);
 			},
 			getLimited: function(pid, count, successCallback, errorCallback) {
-				db.Release
+				Release
 					.findAll({
 						where: { ProjectId: pid },
 						limit: count,
@@ -24,7 +24,7 @@
 					}).success(successCallback).error(errorCallback);
 			},
 			getLimitedOffsetBy: function(pid, count, offsetBy, successCallback, errorCallback) {
-				db.Release
+				Release
 					.findAll({
 						where: { ProjectId: pid },
 						limit: count,

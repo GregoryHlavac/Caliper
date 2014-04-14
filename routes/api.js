@@ -10,9 +10,9 @@ exports.initializeRoutes = function(app)
 			.find({ where: { title: id }})
 			.complete(function(err, proj) {
 				if(err)
-					return next(err);
+					next(err);
 				else if(!proj)
-					return next(new Error("Project failed to load."));
+					next(new Error("Project failed to load."));
 
 				req.project = proj;
 				next();
@@ -24,9 +24,9 @@ exports.initializeRoutes = function(app)
 			.find({ where: { version: id, ProjectId: req.project.id }})
 			.complete(function(err, rls) {
 				if(err)
-					return next(err);
+					next(err);
 				else if(!rls)
-					return next(new Error("Release failed to load."));
+					next(new Error("Release failed to load."));
 
 				req.release = rls;
 				next();
@@ -38,9 +38,9 @@ exports.initializeRoutes = function(app)
 			.find({ where: { crash_id: id, ReleaseId: req.release.id }})
 			.complete(function(err, crs) {
 				if(err)
-					return next(err);
+					next(err);
 				else if(!crs)
-					return next(new Error("Crash failed to load."));
+					next(new Error("Crash failed to load."));
 
 				req.crash = crs;
 				next();
@@ -53,7 +53,6 @@ exports.initializeRoutes = function(app)
 	apiRouter.get('/projects.json', function (req, res) {
 		db.Project.findAll().success(function(projects) {
 			res.json(projects);
-			return;
 		});
 	});
 
