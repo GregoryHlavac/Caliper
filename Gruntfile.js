@@ -13,7 +13,6 @@ module.exports = function(grunt) {
 		},
 		mochacli: {
 			options: {
-				require: ['should'],
 				reporter: 'spec',
 				bail: true
 			},
