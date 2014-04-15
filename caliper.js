@@ -40,9 +40,9 @@ app.set('renderOptions', nconf.get('renderOptions'));
 app.nconf = nconf;
 
 // Create DB after global appConfig has been set.
-var db = require('./models');
+var db = require(path.resolve(__dirname, 'lib', 'models'));
 
-app.set('views', __dirname + '/views');
+app.set('views', path.resolve(__dirname, 'lib', 'views'));
 app.set('view engine', 'jade');
 app.use(require('static-favicon')("./static/favicon.ico"));
 app.use(require('morgan')('dev'));
@@ -56,8 +56,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-var targetDirectory = path.resolve(__dirname, "static");
-var lessDirectory = path.resolve(__dirname, "assets");
+var targetDirectory = path.resolve(__dirname, 'lib', 'static');
+var lessDirectory = path.resolve(__dirname, 'lib', 'assets');
 
 var options =
 {
@@ -69,24 +69,26 @@ var parserOptions = {};
 var compilerOptions = {};
 
 app.use(lessMiddleware(lessDirectory, options, parserOptions, compilerOptions));
-app.use(express.static(path.join(__dirname, 'static'), { maxAge: nconf.get('static_content_expiration') }));
+app.use(express.static(path.join(__dirname, 'lib', 'static'), { maxAge: nconf.get('static_content_expiration') }));
 
 if(nconf.get('renderOptions').compress)
 {
+	var libStatic = path.resolve(__dirname, 'lib', 'static');
+
 	var ugJS = new compressor.minify({
 		type: 'uglifyjs',
 		fileIn: [
-			path.join(__dirname, 'static', "ext", "jquery", "dist", "jquery.js"),
-			path.join(__dirname, 'static', "ext", "angular", "angular.js"),
-			path.join(__dirname, 'static', "ext", "angular-resource", "angular-resource.js"),
-			path.join(__dirname, 'static', "ext", "Chart.js", "Chart.js"),
-			path.join(__dirname, 'static', "bootstrap", "js", "bootstrap.js"),
-			path.join(__dirname, 'static', "ext", "jasny-bootstrap", "dist", "js", "jasny-bootstrap.js"),
-			path.join(__dirname, 'static', "js", "caliper_app.js"),
-			path.join(__dirname, 'static', "js", "caliper_controllers.js"),
-			path.join(__dirname, 'static', "js", "caliper_services.js")
+			path.join(libStatic, "ext", "jquery", "dist", "jquery.js"),
+			path.join(libStatic, "ext", "angular", "angular.js"),
+			path.join(libStatic, "ext", "angular-resource", "angular-resource.js"),
+			path.join(libStatic, "ext", "Chart.js", "Chart.js"),
+			path.join(libStatic, "bootstrap", "js", "bootstrap.js"),
+			path.join(libStatic, "ext", "jasny-bootstrap", "dist", "js", "jasny-bootstrap.js"),
+			path.join(libStatic, "js", "caliper_app.js"),
+			path.join(libStatic, "js", "caliper_controllers.js"),
+			path.join(libStatic, "js", "caliper_services.js")
 		],
-		fileOut: path.join(__dirname, 'static', "dist", "caliper.js"),
+		fileOut: path.join(libStatic, "dist", "caliper.js"),
 		callback: function(err, min){
 			console.log("UglifyJS");
 			console.log(err + "\n" + min);
@@ -96,9 +98,9 @@ if(nconf.get('renderOptions').compress)
 	var sqCSS =	new compressor.minify({
 		type: 'sqwish',
 		fileIn: [
-			path.join(__dirname, 'static', "bootstrap", "css", "bootstrap.css"),
+			path.join(libStatic, "bootstrap", "css", "bootstrap.css"),
 		],
-		fileOut: path.join(__dirname, 'static', "dist", "caliper.css"),
+		fileOut: path.join(libStatic, "dist", "caliper.css"),
 		callback: function(err, min){
 			console.log('Sqwish');
 			console.log(err + "\n" + min);
@@ -106,13 +108,13 @@ if(nconf.get('renderOptions').compress)
 	});
 }
 
-var RouteDir = 'routes';
+var RouteDir = path.resolve(__dirname, 'lib', 'routes');
 
 ffs.readdirRecursive(RouteDir, true, '.').then(function (files) {
 	files.forEach(
 		function (file)
 		{
-			var filePath = path.resolve('./', RouteDir, file),
+			var filePath = path.resolve(RouteDir, file),
 			nextRoute = require(filePath);
 			nextRoute.initializeRoutes(app);
 		});

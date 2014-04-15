@@ -2,7 +2,7 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 		jshint: {
-			files: ['Gruntfile.js', 'caliper.js', 'test/**/*.js', 'routes/**/*.js', 'models/**/*.js'],
+			files: ['Gruntfile.js', 'caliper.js', 'lib/test/**/*.js', 'lib/routes/**/*.js', 'lib/models/**/*.js'],
 			options: {
 				jshintrc: '.jshintrc'
 			}
@@ -17,7 +17,7 @@ module.exports = function(grunt) {
 				reporter: 'spec',
 				bail: true
 			},
-			all: ['test/**/*.js']
+			all: ['lib/test/**/*.js']
 		}
 	});
 
