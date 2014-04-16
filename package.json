@@ -22,7 +22,6 @@
     "less-middleware": "0.2.1-beta",
     "nconf": "0.6.9",
     "sequelize": "^1.7.0",
-    "mysql": "^2.1.1",
     "lodash": "^2.4.1",
     "multiparty": "^3.2.3",
     "compression": "^1.0.1",
