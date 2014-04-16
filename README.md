@@ -39,12 +39,23 @@ Optional Drivers
 Installation
 --------------
 
+Foreword..
+
+You'll need preinstalled..
+
+Node (Preferably 0.10.26 or newer)
+NPM
+Bower
+Grunt
+
 ```sh
 git clone https://github.com/GregoryHlavac/Caliper.git
 cd Caliper
 npm install
 bower install
+grunt build
 mkdir minidumps
+mkdir symbols
 ```
 
 Run Me!

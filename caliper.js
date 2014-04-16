@@ -44,7 +44,7 @@ var db = require(path.resolve(__dirname, 'lib', 'models'));
 
 app.set('views', path.resolve(__dirname, 'lib', 'views'));
 app.set('view engine', 'jade');
-app.use(require('static-favicon')("./static/favicon.ico"));
+app.use(require('static-favicon')("./lib/static/favicon.ico"));
 app.use(require('morgan')('dev'));
 app.use(require('body-parser')());
 app.use(require('method-override')());
