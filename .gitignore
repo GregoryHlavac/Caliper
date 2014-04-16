@@ -27,7 +27,9 @@ symbols
 
 **/lib/static/dist/*
 **/lib/static/ext/*
-**/lib/static/bootstrap/**/*
+**/lib/static/bootstrap
+
+
 **/obj
 **/obj/*
 

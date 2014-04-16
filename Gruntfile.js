@@ -32,6 +32,26 @@ module.exports = function(grunt) {
 						dest: '<%= paths.bootstrap %>/less/variables.less'
 					}
 				]
+			},
+			fonts: {
+				files: [
+					{
+						src: '<%= paths.bootstrap %>/fonts/glyphicons-halflings-regular.eot',
+						dest: '<%= paths.dist %>/fonts/glyphicons-halflings-regular.eot'
+					},
+					{
+						src: '<%= paths.bootstrap %>/fonts/glyphicons-halflings-regular.svg',
+						dest: '<%= paths.dist %>/fonts/glyphicons-halflings-regular.svg'
+					},
+					{
+						src: '<%= paths.bootstrap %>/fonts/glyphicons-halflings-regular.ttf',
+						dest: '<%= paths.dist %>/fonts/glyphicons-halflings-regular.ttf'
+					},
+					{
+						src: '<%= paths.bootstrap %>/fonts/glyphicons-halflings-regular.woff',
+						dest: '<%= paths.dist %>/fonts/glyphicons-halflings-regular.woff'
+					}
+				]
 			}
 		},
 		less: {
@@ -106,7 +126,8 @@ module.exports = function(grunt) {
 			'less:compileBSCore',
 			'less:compileBSTheme',
 			'less:minify',
-			'concat:bootstrap'
+			'concat:bootstrap',
+			'copy:fonts'
 		]
 	);
 };
