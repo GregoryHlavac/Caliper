@@ -18,17 +18,16 @@ $RECYCLE.BIN/
 ## Node.JS
 ############
 node_modules
+bower_components
+
 minidumps
-**/symbols
+symbols
+
+
 
 **/static/dist/*
 **/static/ext/*
 **/obj
 **/obj/*
 
-# WebStorm
 .idea/*
-.idea
-*.iml
-.idea/Caliper.iml
-.idea/jsLibraryMappings.xml

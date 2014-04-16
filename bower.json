@@ -1,31 +1,29 @@
 {
-	"name": "Caliper",
-	"main": "Caliper.js",
-	"version": "0.0.1",
-	"homepage": "https://github.com/GregoryHlavac/Caliper",
-	"authors": [
-		"Gregory Hlavac <ghlavac@gmail.com>"
-	],
-	"dependencies": {
-		"jquery": "2.1",
-		"angular": "1.3.0-beta.3",
-		"angular-resource": "1.3.0-beta.3",
-		"Chart.js": "latest",
-		"jasny-bootstrap": "latest"
-	},
-	"moduleType": [
-		"node"
-	],
-	"license": "MIT",
-	"private": true,
-	"ignore": [
-		"**/.*",
-		"node_modules",
-		"bower_components",
-		"test",
-		"tests"
-	],
-	"resolutions": {
-		"angular": "1.3.0-beta.3"
-	}
+  "name": "Caliper",
+  "main": "Caliper.js",
+  "version": "0.0.1",
+  "homepage": "https://github.com/GregoryHlavac/Caliper",
+  "authors": [
+    "Gregory Hlavac <ghlavac@gmail.com>"
+  ],
+  "dependencies": {
+    "jquery": "2.1",
+    "angular": "1.3.0-beta.5",
+    "angular-resource": "1.3.0-beta.5",
+    "Chart.js": "latest",
+    "jasny-bootstrap": "latest",
+    "bootstrap": "3.1.1"
+  },
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
 }
