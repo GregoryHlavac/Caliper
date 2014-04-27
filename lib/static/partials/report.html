@@ -1,0 +1,28 @@
+<div class="container">
+	<ol class="breadcrumb">
+		<li>
+			<a href="#/project/{{project_title}}">{{project_title}}</a>
+		</li>
+		<li>
+			<a href="#/project/{{project_title}}/{{release_version}}">{{release_version}}</a>
+		</li>
+		<li>
+			<a href="#/project/{{project_title}}/{{release_version}}/{{crash.id}}">{{crash.signature | signature}}</a>
+		</li>
+		<li class="active">{{report_uuid}}</li>
+	</ol>
+
+	<div class="panel panel-primary">
+		<div class="panel-heading text-center">
+			<h4>Report {{report.report_uuid}}</h4>
+		</div>
+		<div class="panel-body" ng-if="report.description">
+			<p>{{report.description}}</p>
+		</div>
+		<ul class="list-group" ng-repeat="frame in frames">
+			<li class="list-group-item">
+				{{frame.file}} ({{frame.line}}): {{frame.function | signature}}
+			</li>
+		</ul>
+	</div>
+</div>

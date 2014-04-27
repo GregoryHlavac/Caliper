@@ -29,9 +29,12 @@ head
 	if settings.renderOptions.compress
 		link(rel='stylesheet', href='/dist/caliper.css')
 	else
-		link(rel='stylesheet', href='/bootstrap/css/bootstrap.css')
-	link(rel='stylesheet', href='/css/caliper_custom.css')
+		//- TODO: Fix this shit, it isn't working with compiled bootstrap.
+		link(rel='stylesheet', href='/dist/css/bootstrap.css')
 
+	link(rel='stylesheet', href='/css/caliper_custom.css')
 	link(rel='stylesheet', href='/css/caliper_admin_custom.css')
 
 	block additionalHeader
+
+	base(href='/')

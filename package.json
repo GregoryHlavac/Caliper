@@ -21,7 +21,6 @@
     "jade": "~1.3.0",
     "less-middleware": "0.2.1-beta",
     "nconf": "0.6.9",
-    "sequelize": "^1.7.0",
     "lodash": "^2.4.1",
     "multiparty": "^3.2.3",
     "compression": "^1.0.1",
@@ -34,7 +33,10 @@
     "express-session": "^1.0.2",
     "connect-flash": "^0.1.1",
     "connect-session": "0.0.1",
-    "cookie-parser": "^1.0.1"
+    "cookie-parser": "^1.0.1",
+    "sequelize-sleep": "latest",
+    "winston": "^0.7.3",
+    "sequelize": "^1.7.3"
   },
   "devDependencies": {
     "should": "latest",

@@ -7,7 +7,12 @@ var express = require('express'),
     path = require('path'),
     lessMiddleware = require('less-middleware'),
 	compressor = require('node-minify'),
-	passport = require('passport');
+	passport = require('passport'),
+	Sleep = require('sequelize-sleep');
+
+// For my dev..
+//var Sleep = require('../node-sequelize-sleep');
+
 
 /*  
  *  Load command-line arguments...
@@ -98,7 +103,7 @@ if(nconf.get('renderOptions').compress)
 	var sqCSS =	new compressor.minify({
 		type: 'sqwish',
 		fileIn: [
-			path.join(libStatic, "bootstrap", "css", "bootstrap.css"),
+			path.join(libStatic, "bootstrap", "css", "bootstrap.css")
 		],
 		fileOut: path.join(libStatic, "dist", "caliper.css"),
 		callback: function(err, min){
@@ -110,22 +115,25 @@ if(nconf.get('renderOptions').compress)
 
 var RouteDir = path.resolve(__dirname, 'lib', 'routes');
 
-ffs.readdirRecursive(RouteDir, true, '.').then(function (files) {
-	files.forEach(
-		function (file)
-		{
-			var filePath = path.resolve(RouteDir, file),
-			nextRoute = require(filePath);
-			nextRoute.initializeRoutes(app);
-		});
-}).otherwise(function (err) {
-	console.log("Route Load Error: " + err);
-});
+ffs.readdirRecursive(RouteDir, true, '.')
+	.then(function (files) {
+		files.forEach(function (file)
+			{
+				var filePath = path.resolve(RouteDir, file),
+				nextRoute = require(filePath);
+				nextRoute.initializeRoutes(app);
+			}
+		);
+	})
+	.otherwise(function (err) {
+		console.log("Route Load Error: " + err);
+	});
 
 db.sequelize.sync().complete(function(err) {
 	if (err) {
 		throw err;
 	}
+
 	var server = app.listen(nconf.get("port"), function () {
 		console.log('Caliper started on port %d...', server.address().port);
 	});

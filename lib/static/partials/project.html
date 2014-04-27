@@ -1,0 +1,28 @@
+<div class="container">
+	<ol class="breadcrumb">
+		<li class="active">{{project.title}}</li>
+	</ol>
+
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			Crashes Per Release
+		</div>
+		<div style="height: 250px;">
+			<cjs-line dataset="chartData" autofit="true"/>
+		</div>
+	</div>
+
+	<div class="panel panel-primary">
+		<div class="panel-heading">Releases</div>
+		<div class="panel-body">
+			<ol class="list-group" ng-repeat="release in releases">
+				<a href="#/project/{{project.title}}/{{release.version}}" class="list-group-item">
+					<span class="badge" style="background-color: green;">{{release.fixed_crashes}}</span>
+					<span class="badge" style="background-color: darkblue;">{{release.identified_crashes}}</span>
+					<span class="badge" style="background-color: red;">{{release.unidentified_crashes}}</span>
+					{{release.version}}
+				</a>
+			</ol>
+		</div>
+	</div>
+</div>

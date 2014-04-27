@@ -22,9 +22,9 @@
 doctype html
 html(lang="en", ng-app="caliperApp")
 	include header
-	body(ng-controller="NavigatorCtrl")
-		#navigation.container-fluid(ng-switch, on='page')
-			.navbar.navbar-default.navbar-fixed-top(role='navigation', ng-switch-default)
+	body
+		#navigation.container-fluid
+			.navbar.navbar-default.navbar-fixed-top(role='navigation', ng-controller="NavigationController")
 				.container-fluid
 					.navbar-header
 						a.navbar-brand(href='/') Caliper
@@ -34,79 +34,17 @@ html(lang="en", ng-app="caliperApp")
 								a.dropdown-toggle(href='#', data-toggle='dropdown')
 									| Projects
 									b.caret
-								ul.dropdown-menu
+								ul.dropdown-menu.scrollable-menu
 									li(ng-repeat="project in projects")
-										a(href="/projects/{{project.title}}")
+										a(href="#/project/{{project.title}}", data-method='get', target='_self')
 											| {{project.title}}
 						ul.nav.navbar-nav.navbar-right
 							form.navbar-form.navbar-left(role='search')
 								input.form-control(type='text', placeholder='Search')
 
-			#adminPage(ng-switch-when='admin')
-				.navbar.navbar-default.navbar-fixed-top(role='navigation')
-					.container-fluid
-						.navbar-header
-							button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
-								span.icon-bar
-								span.icon-bar
-								span.icon-bar
-							a.navbar-brand(href='#') Caliper Control Panel
-						.navbar-collapse.collapse
-							form.navbar-form.navbar-right
-								input.form-control(type='text', placeholder='Search...')
-				.container-fluid
-					.row
-						.col-sm-3.col-md-2.col-lg-1.sidebar.navbar-inverse
-							ul.nav.nav-sidebar
-								li.active
-									a(href='#') Overview
-								li
-									a(href='#') Projects
-								li
-									a(href='#') Users
-								li
-									a(href='#') Export
-						.col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.col-lg-11.col-lg-offset-1.main
-							h1.page-header Dashboard
-							.row.placeholders
-								.col-xs-6.col-sm-3.placeholder
-									img.img-responsive(data-src='holder.js/200x200/auto/sky', alt='Generic placeholder thumbnail')
-									h4 Label
-									span.text-muted Something else
-								.col-xs-6.col-sm-3.placeholder
-									img.img-responsive(data-src='holder.js/200x200/auto/vine', alt='Generic placeholder thumbnail')
-									h4 Label
-									span.text-muted Something else
-								.col-xs-6.col-sm-3.placeholder
-									img.img-responsive(data-src='holder.js/200x200/auto/sky', alt='Generic placeholder thumbnail')
-									h4 Label
-									span.text-muted Something else
-								.col-xs-6.col-sm-3.placeholder
-									img.img-responsive(data-src='holder.js/200x200/auto/vine', alt='Generic placeholder thumbnail')
-									h4 Label
-									span.text-muted Something else
-							h2.sub-header Section title
-							.table-responsive
-								table.table.table-striped
-									thead
-										tr
-											th #
-											th Header
-											th Header
-											th Header
-											th Header
-									tbody
-										tr
-											td 1,001
-											td Lorem
-											td ipsum
-											td dolor
-											td sit
+		div(ng-view)
 
 		block content
-
-		a(href='#', ng-click="page=''") Default
-		a(href='#', ng-click="page='admin'") Admin
 
 	#push
 		include footer

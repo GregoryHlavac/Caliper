@@ -1,0 +1,36 @@
+<div class="container">
+	<ol class="breadcrumb">
+		<li>
+			<a href="#/project/{{project_title}}">{{project_title}}</a>
+		</li>
+		<li>
+			<a href="#/project/{{project_title}}/{{release_version}}">{{release_version}}</a>
+		</li>
+		<li class="active">{{crash.signature | signature}}</li>
+	</ol>
+
+	<div class="panel panel-primary">
+		<div class="panel-heading text-center">
+			<h4>Reports</h4>
+		</div>
+
+		<table class="table table-striped table-hover">
+			<thead>
+				<th>Reported By</th>
+				<th>Type</th>
+				<th>OS</th>
+				<th>OS Version</th>
+				<th>Reported At</th>
+			</thead>
+			<tbody>
+				<tr ng-repeat="report in reports" ng-click="viewReport(report)">
+					<td>{{report.client_id}}</td>
+					<td>{{report.crash_type}}</td>
+					<td>{{report.operating_system}}</td>
+					<td>{{report.os_version}}</td>
+					<td>{{report.reported_on}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

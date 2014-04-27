@@ -3,7 +3,6 @@ html {
     min-height: 100%;
 }
 body {
-    /* Margin bottom by footer height */
     margin-bottom: 35px;
     padding-top: 70px;
 }
@@ -12,7 +11,6 @@ body {
     position: absolute;
     bottom: 0;
     width: 100%;
-    /* Set the fixed height of the footer here */
     height: 35px;
 }
 
@@ -20,4 +18,27 @@ body {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+}
+
+.scrollable-menu {
+    height: auto;
+    max-height: 145px;
+    overflow-x: hidden;
+}
+
+
+
+/*
+Monkey Patch to fix my breadcrumbs.
+As it worked in the custom version I downloaded but not in the custom
+compiled version from twitter with bower/grunt.
+*/
+.breadcrumb {
+    border: 1px solid rgba(0, 0, 0, 0.6);
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+    background-image: -webkit-linear-gradient(#484e55, #3a3f44 60%, #313539);
+    background-image: linear-gradient(#484e55, #3a3f44 60%, #313539);
+    background-repeat: no-repeat;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff484e55', endColorstr='#ff313539', GradientType=0);
+    filter: none;
 }

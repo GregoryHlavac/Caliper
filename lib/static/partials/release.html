@@ -1,0 +1,21 @@
+<div class="container">
+	<ol class="breadcrumb">
+		<li>
+			<a href="#/project/{{project.title}}">{{project.title}}</a>
+		</li>
+		<li class="active">{{release.version}}</li>
+	</ol>
+
+	<div class="panel panel-primary">
+		<div class="panel-heading text-center">
+			<h4>Version {{release.version}}</h4>
+		</div>
+		<div class="panel-body">
+			<ol class="list-group" ng-repeat="crash in crashes">
+				<a href="#/project/{{project.title}}/{{release.version}}/{{crash.id}}" class="list-group-item truncateText">
+					{{crash.signature | templated_types}}
+				</a>
+			</ol>
+		</div>
+	</div>
+</div>
