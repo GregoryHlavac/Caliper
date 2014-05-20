@@ -44,12 +44,12 @@
  */
 
 .main {
-    padding: 20px;
+    padding: 0px;
 }
 @media (min-width: 768px) {
     .main {
-        padding-right: 40px;
-        padding-left: 40px;
+        padding-left: 20px;
+        padding-right: 20px;
     }
 }
 .main .page-header {
@@ -57,21 +57,28 @@
 }
 
 
-/*
- * Placeholder dashboard ideas
- */
-
-.placeholders {
-    margin-bottom: 30px;
+.uploader-drop-zone
+{
+    /* Static height drop zone that also contains the file list, with a border */
+    height: 300px;
+    border: dashed 1px lightgrey;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
     text-align: center;
+
+    /* Make the drop zone scollable */
+    overflow-y: scroll;
 }
-.placeholders h4 {
-    margin-bottom: 0;
-}
-.placeholder {
-    margin-bottom: 20px;
-}
-.placeholder img {
-    display: inline-block;
-    border-radius: 50%;
+
+.drop-zone-text
+{
+    /* Vertically & horizontally center the dynamically generated drop zone message
+    inside the drop zone & make it a bit presentable */
+    position: absolute;
+    vertical-align: middle;
+    line-height: 300px;
+    font-size: 200%;
+    width: 100%;
+    left: 0;
 }

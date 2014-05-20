@@ -17,12 +17,11 @@
 	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 	THE SOFTWARE.
 doctype html
-html(lang="en")
+html(lang="en", ng-app="caliperAdmin")
 	include ../header
 
 	block additionalHeader
 		link(rel='stylesheet', href='/css/caliper_admin_custom.css')
-
 
 	body(style="padding-top: 70px;")
 		.navbar.navbar-default.navbar-fixed-top(role='navigation')
@@ -36,60 +35,25 @@ html(lang="en")
 				.navbar-collapse.collapse
 					form.navbar-form.navbar-right
 						input.form-control(type='text', placeholder='Search...')
-
 		.container-fluid
 			.row
 				.col-sm-3.col-md-2.col-lg-1.sidebar.navbar-inverse
 					ul.nav.nav-sidebar
 						li.active
-							a(href='#') Overview
+							a(ui-sref='overview') Overview
 						li
-							a(href='#') Projects
+							a(ui-sref='projects') Projects
 						li
-							a(href='#') Users
+							a(ui-sref='users') Users
 						li
-							a(href='#') Export
+							a(ui-sref='symbol_upload') Symbol Upload
 				.col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.col-lg-11.col-lg-offset-1.main
-					h1.page-header Dashboard
-					.row.placeholders
-						.col-xs-6.col-sm-3.placeholder
-							img.img-responsive(data-src='holder.js/200x200/auto/sky', alt='Generic placeholder thumbnail')
-							h4 Label
-							span.text-muted Something else
-						.col-xs-6.col-sm-3.placeholder
-							img.img-responsive(data-src='holder.js/200x200/auto/vine', alt='Generic placeholder thumbnail')
-							h4 Label
-							span.text-muted Something else
-						.col-xs-6.col-sm-3.placeholder
-							img.img-responsive(data-src='holder.js/200x200/auto/sky', alt='Generic placeholder thumbnail')
-							h4 Label
-							span.text-muted Something else
-						.col-xs-6.col-sm-3.placeholder
-							img.img-responsive(data-src='holder.js/200x200/auto/vine', alt='Generic placeholder thumbnail')
-							h4 Label
-							span.text-muted Something else
-					h2.sub-header Section title
-					.table-responsive
-						table.table.table-striped
-							thead
-								tr
-									th #
-									th Header
-									th Header
-									th Header
-									th Header
-							tbody
-								tr
-									td 1,001
-									td Lorem
-									td ipsum
-									td dolor
-									td sit
+					div(ui-view)
 
 		block content
 			#push
 
-		include ../footer
+		include footer
 
 	block additionalFooter
 		script(src='//cdnjs.cloudflare.com/ajax/libs/holder/2.3.1/holder.min.js')

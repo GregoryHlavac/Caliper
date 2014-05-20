@@ -1,1 +1,40 @@
-<p>TEST EMBED!</p>
+<script type="text/template" id="qq-template">
+	<div class="qq-uploader-selector qq-uploader">
+		<div id="totalProgress" class="qq-total-progress-bar-container-selector progress progress-striped active">
+			<div class="qq-total-progress-bar-selector progress-bar" role="progressbar"></div>
+		</div>
+		<div class="qq-upload-drop-area-selector uploader-drop-zone">
+			<span class="drop-zone-text" ng-bind="dropZoneText"></span>
+			<ul class="qq-upload-list-selector qq-upload-list">
+				<li class="file-container">
+					<div class="qq-progress-bar-container-selector progress">
+						<div class="qq-progress-bar-selector progress-bar"></div>
+					</div>
+					<div class="file-info">
+						<span class="qq-upload-spinner-selector qq-upload-spinner"></span>
+						<img class="qq-thumbnail-selector" qq-max-size="50" qq-server-scale>
+						<span class="qq-upload-file-selector qq-upload-file"></span>
+						<span class="qq-upload-size-selector qq-upload-size"></span>
+					</div>
+					<button class="qq-upload-cancel-selector btn btn-small btn-warning" href="#">Cancel</button>
+					<button class="qq-upload-retry-selector qq-upload-retry btn btn-small" href="#">Retry</button>
+					<button class="qq-upload-delete-selector btn btn-small btn-danger" href="#">Delete</button>
+					<span class="qq-upload-status-text-selector qq-upload-status-text"></span>
+				</li>
+			</ul>
+		</div>
+            <span class="qq-drop-processing-selector qq-drop-processing">
+                <span>Processing dropped files...</span>
+                <span class="qq-drop-processing-spinner-selector qq-drop-processing-spinner"></span>
+            </span>
+	</div>
+</script>
+
+
+<div fine-uploader
+	 upload-server="/admin/symbol_upload"
+	 not-available-placeholder="/fineuploader/placeholders/not_available-generic.png"
+	 waiting-placeholder="/fineuploader/placeholders/waiting-generic.png"
+	 max-file-size="50000000"
+	 large-preview-size="500"
+	 allowed-extensions="sym"></div>

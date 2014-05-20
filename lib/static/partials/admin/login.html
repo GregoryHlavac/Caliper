@@ -1,1 +1,9 @@
-<p>TEST EMBED!</p>
+<form role="form" method="post" ng-submit='login()' class="form-signin">
+	<h2 class="form-signin-heading text-center">Please Login</h2>
+	<input name="username" type="text" placeholder="Username" required="required" autofocus="autofocus" class="form-control" ng-model="loginForm.username"/>
+	<input name="password" type="password" placeholder="Password" required="required" class="form-control" ng-model="loginForm.password"/>
+	<label class="checkbox">
+		<input type="checkbox" value="remember-me"/>Remember Me
+	</label>
+	<button type="submit" class="btn btn-lg btn-primary btn-block">Sign in</button>
+</form>

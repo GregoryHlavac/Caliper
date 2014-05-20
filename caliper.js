@@ -76,43 +76,6 @@ var compilerOptions = {};
 app.use(lessMiddleware(lessDirectory, options, parserOptions, compilerOptions));
 app.use(express.static(path.join(__dirname, 'lib', 'static'), { maxAge: nconf.get('static_content_expiration') }));
 
-if(nconf.get('renderOptions').compress)
-{
-	var libStatic = path.resolve(__dirname, 'lib', 'static');
-
-	var ugJS = new compressor.minify({
-		type: 'uglifyjs',
-		fileIn: [
-			path.join(libStatic, "ext", "jquery", "dist", "jquery.js"),
-			path.join(libStatic, "ext", "angular", "angular.js"),
-			path.join(libStatic, "ext", "angular-resource", "angular-resource.js"),
-			path.join(libStatic, "ext", "Chart.js", "Chart.js"),
-			path.join(libStatic, "bootstrap", "js", "bootstrap.js"),
-			path.join(libStatic, "ext", "jasny-bootstrap", "dist", "js", "jasny-bootstrap.js"),
-			path.join(libStatic, "js", "caliper_app.js"),
-			path.join(libStatic, "js", "caliper_controllers.js"),
-			path.join(libStatic, "js", "caliper_services.js")
-		],
-		fileOut: path.join(libStatic, "dist", "caliper.js"),
-		callback: function(err, min){
-			console.log("UglifyJS");
-			console.log(err + "\n" + min);
-		}
-	});
-
-	var sqCSS =	new compressor.minify({
-		type: 'sqwish',
-		fileIn: [
-			path.join(libStatic, "bootstrap", "css", "bootstrap.css")
-		],
-		fileOut: path.join(libStatic, "dist", "caliper.css"),
-		callback: function(err, min){
-			console.log('Sqwish');
-			console.log(err + "\n" + min);
-		}
-	});
-}
-
 var RouteDir = path.resolve(__dirname, 'lib', 'routes');
 
 ffs.readdirRecursive(RouteDir, true, '.')

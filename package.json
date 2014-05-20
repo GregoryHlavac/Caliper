@@ -36,7 +36,9 @@
     "cookie-parser": "^1.0.1",
     "sequelize-sleep": "latest",
     "winston": "^0.7.3",
-    "sequelize": "^1.7.3"
+    "sequelize": "^1.7.3",
+    "mkdirp": "^0.5.0",
+    "line-by-line": "^0.1.1",
   },
   "devDependencies": {
     "should": "latest",
